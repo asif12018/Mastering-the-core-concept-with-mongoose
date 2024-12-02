@@ -36,7 +36,6 @@ const localGuardianSchema = new Schema<LocalGuardian>({
   address: { type: String, required: true },
 });
 
-
 const studentSchema = new Schema<Student>({
   id: { type: String, required: true },
   name: userNameSchema,
@@ -54,10 +53,4 @@ const studentSchema = new Schema<Student>({
   isActive: ['active', 'blocked'],
 });
 
-
-const User = model<Student>('User', studentSchema);
-
-
-
-
-
+export const StudentModel = model<Student>('Student', studentSchema);
