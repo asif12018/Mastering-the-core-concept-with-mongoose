@@ -9,7 +9,7 @@ export type Guardian = {
 
 export type userName = {
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
 };
 
@@ -25,7 +25,7 @@ export type Blood = 'A+' | 'A-' | 'B+' | 'B-' | 'O+' | 'O-' | 'AB+' | 'AB-';
 export type Student = {
   id: string;
   name: userName;
-  gender: 'male' | 'female';
+  gender: 'male' | 'female' | 'other';
   email: string;
   dateOfBirth: string;
   contactNo: string;
