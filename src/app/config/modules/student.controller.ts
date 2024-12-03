@@ -1,9 +1,21 @@
 import { Request, Response } from 'express';
 import { StudentServices } from './student.service';
+import Joi from 'joi';
 
 //controller to create student in database
 const createStudent = async (req: Request, res: Response) => {
   try {
+    //creating a schema validation for joi
+    const JoiValidationSchema = Joi.object({
+      id: Joi.string(),
+      name: {
+        firstName: Joi.string().max(20).required,
+        middleName: Joi.string().max(20).required,
+        lastName: Joi.string().max(20).required,
+      },
+      gender: Joi.string().required().valid(['male', 'female', 'other']),
+    });
+
     const { student: studentData } = req.body;
     // will call service func to send this data
     const result = await StudentServices.createStudentIntoDB(studentData);
