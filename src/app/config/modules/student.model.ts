@@ -14,13 +14,13 @@ const userNameSchema = new Schema<userName>({
     required: [true, 'first name is required'],
     trim: true,
     maxlength: [20, 'first Name can not be more than 20 characters'],
-    validate: {
-      validator: function (value: string) {
-        const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
-        return firstNameStr === value;
-      },
-      message: '{VALUE} is not capitalized format',
-    },
+    // validate: {
+    //   validator: function (value: string) {
+    //     const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
+    //     return firstNameStr === value;
+    //   },
+    //   message: '{VALUE} is not capitalized format',
+    // },
   },
   middleName: {
     type: String,
@@ -30,10 +30,10 @@ const userNameSchema = new Schema<userName>({
     type: String,
     required: [true, 'last name is required'],
     trim: true,
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: '{VALUE} is not valid',
-    },
+    // validate: {
+    //   validator: (value: string) => validator.isAlpha(value),
+    //   message: '{VALUE} is not valid',
+    // },
   },
 });
 
