@@ -15,7 +15,11 @@ const createStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log('err from student controller', err);
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong in create student controller',
+      error: err,
+    });
   }
 };
 
@@ -31,7 +35,11 @@ const getAllStudents = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log('error from get student controller', err);
+    res.status(500).json({
+      success: false,
+      message: 'something went wrong from get all student controller',
+      error: err,
+    });
   }
 };
 
@@ -47,7 +55,11 @@ const getSingleStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    console.log('error from get single student controller', err);
+    res.status(500).json({
+      success: true,
+      message: 'Something went wrong in get single student controller',
+      error: err,
+    });
   }
 };
 
