@@ -1,4 +1,6 @@
-export type Guardian = {
+import { Model } from 'mongoose';
+
+export type TGuardian = {
   fatherName: string;
   fatherOccupation: string;
   fatherContactNo: string;
@@ -7,13 +9,13 @@ export type Guardian = {
   motherContactNo: string;
 };
 
-export type userName = {
+export type TuserName = {
   firstName: string;
   middleName?: string;
   lastName: string;
 };
 
-export type LocalGuardian = {
+export type TLocalGuardian = {
   name: string;
   occupation: string;
   contactNo: string;
@@ -22,9 +24,9 @@ export type LocalGuardian = {
 
 export type Blood = 'A+' | 'A-' | 'B+' | 'B-' | 'O+' | 'O-' | 'AB+' | 'AB-';
 
-export type Student = {
+export type TStudent = {
   id: string;
-  name: userName;
+  name: TuserName;
   gender: 'male' | 'female' | 'other';
   email: string;
   dateOfBirth: string;
@@ -33,8 +35,28 @@ export type Student = {
   bloodGroup?: Blood;
   presentAddress: string;
   permanentAddress: string;
-  guardian: Guardian;
-  localGuardian: LocalGuardian;
+  guardian: TGuardian;
+  localGuardian: TLocalGuardian;
   profileImg?: string;
   isActive: 'active' | 'blocked';
 };
+
+//for creating static
+
+export interface StudentModel extends Model<TStudent> {
+  isUserExists(id: string): Promise<TStudent | null>;
+}
+
+// interface to check is a specific user is available or not
+
+// export type StudentMethod = {
+//   isUserExists(id: string): Promise<TStudent | null>;
+// };
+
+// custom method to check the specific user
+
+// export type StudentModel = Model<
+//   TStudent,
+//   Record<string, never>,
+//   StudentMethod
+// >;

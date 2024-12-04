@@ -5,7 +5,6 @@ const userNameSchema = z.object({
     .string()
     .max(20, 'First Name cannot exceed 20 characters')
     .min(1, 'First name is required')
-    .regex(/^[A-Z][a-z]*$/, 'Name only should have letter not number')
     .trim(),
   middleName: z.string().trim().optional(),
   lastName: z.string().min(1, 'Last name is required').trim(),
