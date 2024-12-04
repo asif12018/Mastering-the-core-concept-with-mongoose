@@ -19,6 +19,7 @@
   "dependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.9.3",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/eslint__js": "^8.42.3",
     "@types/validator": "^13.12.2",

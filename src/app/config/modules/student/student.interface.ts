@@ -26,6 +26,7 @@ export type Blood = 'A+' | 'A-' | 'B+' | 'B-' | 'O+' | 'O-' | 'AB+' | 'AB-';
 
 export type TStudent = {
   id: string;
+  password: string;
   name: TuserName;
   gender: 'male' | 'female' | 'other';
   email: string;
