@@ -48,6 +48,7 @@ const studentValidationSchemaZod = z.object({
   localGuardian: localGuardianSchema,
   profileImg: z.string().optional(),
   isActive: z.enum(['active', 'blocked']).optional().default('active'),
+  isDeleted: z.boolean(),
 });
 
 export default studentValidationSchemaZod;

@@ -101,12 +101,34 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     enum: ['active', 'blocked'],
     default: 'active',
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+// Query Middleware
+
+studentSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+studentSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+studentSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
 });
 
 // pre save middleware or pre save hook : will work on create() save() and password salting.
 
 studentSchema.pre('save', async function (next) {
   // console.log(this, 'pre hook: we will save the data');
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
   // hashing password and save into DB
   user.password = await bcypt.hash(
@@ -118,8 +140,10 @@ studentSchema.pre('save', async function (next) {
 
 // post save middleware or pre save hook
 
-studentSchema.post('save', function () {
-  console.log(this, 'post hook: we saved our data');
+studentSchema.post('save', function (doc, next) {
+  // console.log(this, 'post hook: we saved our data');
+  doc.password = '';
+  next();
 });
 
 //creating a custom static method
