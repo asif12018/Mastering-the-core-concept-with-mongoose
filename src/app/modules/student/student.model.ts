@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose';
 import validator from 'validator';
-import bcypt from 'bcrypt';
 
 import {
   TGuardian,
@@ -8,8 +7,7 @@ import {
   TStudent,
   StudentModel,
   TuserName,
-} from './student/student.interface';
-import config from '../../config';
+} from './student.interface';
 
 const userNameSchema = new Schema<TuserName>({
   firstName: {
@@ -59,7 +57,13 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 const studentSchema = new Schema<TStudent, StudentModel>(
   {
     id: { type: String, required: true, unique: true },
-    password: String,
+    // password: String,
+    user: {
+      type: Schema.Types.ObjectId,
+      required: [true, 'object id is required'],
+      unique: true,
+      ref: 'User',
+    },
     name: {
       type: userNameSchema,
       required: true,
@@ -73,7 +77,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       },
       required: true,
     },
-    dateOfBirth: { type: String, required: true },
+    dateOfBirth: { type: Date, required: true },
     email: {
       type: String,
       required: true,
@@ -97,10 +101,15 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       required: [true, 'local guardian name is required'],
     },
     profileImg: String,
-    isActive: {
-      type: String,
-      enum: ['active', 'blocked'],
-      default: 'active',
+    // isActive: {
+    //   type: String,
+    //   enum: ['active', 'blocked'],
+    //   default: 'active',
+    // },
+    admissionSemester: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicSemester',
+      required: true,
     },
     isDeleted: {
       type: Boolean,
@@ -135,28 +144,6 @@ studentSchema.pre('aggregate', function (next) {
 
 studentSchema.virtual('fullName').get(function () {
   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
-});
-
-// pre save middleware or pre save hook : will work on create() save() and password salting.
-
-studentSchema.pre('save', async function (next) {
-  // console.log(this, 'pre hook: we will save the data');
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this;
-  // hashing password and save into DB
-  user.password = await bcypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds),
-  );
-  next();
-});
-
-// post save middleware or pre save hook
-
-studentSchema.post('save', function (doc, next) {
-  // console.log(this, 'post hook: we saved our data');
-  doc.password = '';
-  next();
 });
 
 //creating a custom static method
