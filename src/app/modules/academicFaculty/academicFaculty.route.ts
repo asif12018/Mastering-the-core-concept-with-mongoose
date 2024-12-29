@@ -12,10 +12,7 @@ router.post(
   AcademicFacultyController.createAcademicFaculty,
 );
 
-router.get(
-  '/academic-faculty',
-  AcademicFacultyController.getAllAcademicFaculties,
-);
+router.get('/', AcademicFacultyController.getAllAcademicFaculties);
 
 router.get('/:id', AcademicFacultyController.getSingleAcademicFaculty);
 
