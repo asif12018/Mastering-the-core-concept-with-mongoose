@@ -7,7 +7,7 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  const statusCode = 500; // Use err.statusCode if provided
+  const statusCode = err.statusCode ? err.statusCode : 500; // Use err.statusCode if provided
   const message = err.message || 'Something went wrong';
 
   res.status(statusCode).json({

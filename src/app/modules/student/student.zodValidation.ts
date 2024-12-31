@@ -57,6 +57,7 @@ const createStudentValidationSchemaZod = z.object({
       localGuardian: localGuardianValidationSchema,
       profileImg: z.string().optional(),
       admissionSemester: z.string(),
+      admissionDepartment: z.string(),
     }),
   }),
 });

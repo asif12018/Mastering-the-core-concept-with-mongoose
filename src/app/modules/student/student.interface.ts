@@ -43,6 +43,7 @@ export type TStudent = {
   // isActive: 'active' | 'blocked';
   admissionSemester: Types.ObjectId;
   isDeleted: boolean;
+  admissionDepartment: Types.ObjectId;
 };
 
 //for creating static
