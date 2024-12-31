@@ -50,6 +50,7 @@ const createStudentIntoDB = async (password: string, studentData: TStudent) => {
     console.error(err);
     await session.abortTransaction();
     await session.endSession();
+    throw new AppError(400, 'failed to create student');
   }
 };
 
